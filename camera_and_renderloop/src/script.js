@@ -30,24 +30,28 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas
 })
 
-// render the scene
-renderer.setSize(window.innerWidth, window.innerHeight)
-
-
 // initialize the orbit controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDumping = true
 controls.enableZoom = true
 controls.autoRotate = true
 
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  camera.updateProjectionMatrix()
+})
 
+// render loop
 const renderLoop = () => {
+  renderer.setSize(window.innerWidth, window.innerHeight)
   controls.update()
   renderer.render(scene, camera)
   window.requestAnimationFrame(renderLoop)
 }
 
 renderLoop()
+console.log(window.devicePixelRatio)
 
 
 
