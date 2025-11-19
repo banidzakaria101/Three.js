@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 // initialize the scene
 const scene = new THREE.Scene()
@@ -21,10 +22,32 @@ const camera = new THREE.PerspectiveCamera(
   30)
 camera.position.z = 5
 
+
+
 // initialize the renderer
 const canvas = document.querySelector('canvas.threejs')
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas
 })
+
+// render the scene
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.render(scene, camera)
+
+
+// initialize the orbit controls
+const controls = new OrbitControls(camera, canvas)
+controls.enableDumping = true
+controls.enableZoom = true
+controls.autoRotate = true
+
+
+const renderLoop = () => {
+  controls.update()
+  renderer.render(scene, camera)
+  window.requestAnimationFrame(renderLoop)
+}
+
+renderLoop()
+
+
+
