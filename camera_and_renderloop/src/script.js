@@ -14,6 +14,13 @@ const cubeMesh = new THREE.Mesh(
 )
 scene.add(cubeMesh)
 
+const axesHelper = new THREE.AxesHelper(3)
+scene.add(axesHelper)
+
+cubeMesh.position.x = 1
+cubeMesh.position.y = 1
+cubeMesh.position.z = 1
+
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
   75, 
@@ -35,6 +42,7 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDumping = true
 controls.enableZoom = true
 controls.autoRotate = true
+
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight
